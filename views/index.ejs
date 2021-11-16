@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Ministry Schedule <%= monthTitle %> <%= yearTitle %></title>
+ </head>
+<body>
+    <!-- <h1>THE SCHEDULE WILL BE POSTED SHORTLY......</h1> -->
+    <header>
+        <nav>
+            <div class="top">
+                    <span class='md-text underline' id='month'> <%= monthTitle.toUpperCase() %></span>
+                    <br>
+                <span class='lg-text underline'>FIELD MINISTRY</p>
+            </div>
+            <div class="bottom">
+                <p id='text'>
+                    <%= weeks[0].themeTitle %>
+                </p>
+            </div>
+        </nav>
+    </header>
+    <section id="week-of">
+        <!-- WEEKOF -->
+        <% dateArr.forEach((date, i)=>{ %>
+            <a href="#id-<%=i%>"><span><%= date %></span></a>
+        <% })%>
+         
+        
+    
+    </section>
+    <main id='mobile'> 
+        <header>
+            <%  weekIndex = 0 
+                dayIndex = 0
+            %>
+            <!-- Loop through all documents -->
+            <% weeks.forEach((week)=>{ %>
+
+                    <% if ('topic' in week) { %>
+                        <!-- Output grey bar headers -->
+                        <div class="topbar">
+                            <div class='week'>Week - <%= dateArr[weekIndex] %></div>
+                            <h4 class='theme'><%= week.topic%></h4>
+                            <a href="#"><i class="fa fa-angle-double-up " aria-hidden="true"></i></a>
+                            <% weekIndex++ %>
+                        </div>
+                    <% } %> <!-- endif -->
+
+                    <div class="wrapper">
+                        <div class="monday">
+                            <p><%= week.day%></p>
+                            <%
+                                if (week.day.toLowerCase() == 'saturday' ) { %>
+                                    <p>2pm</p> 
+                                    <%
+                                    isSunday = true
+                                } else { %>
+                                    <p>11am / 6.30pm</p> <%
+                                }
+                            %>
+                            
+                        </div>
+                        <div class="theme">
+                            <a href='<%= week.link %>'><h3><%= week.theme %></h3>
+                            <div class="ref"><%= week.ref %></div>
+                            <a/>
+                            <footer>
+                                <p><%= week.overseers %></p>
+                            </footer>
+                        </div>
+                        <% 
+                        if (isSunday) { %>
+                            <div class="monday mb-60">
+                            <a href="https://forms.gle/5yoZA8ZGzx6EW8bA6" style='color: white'><p>Sunday</p></a>
+                            <a href="https://forms.gle/5yoZA8ZGzx6EW8bA6" style='color: white'><span style='font-size: 1rem; display:block'>Group Overseers</span></a>
+                            </div>
+                            <% isSunday = false;
+                        }
+                        %>
+  
+                    </div> 
+                </div>
+            <% })%>
+        </header>
+    </main>
+    <section id="desktop">
+        <header>
+            <div class="grids bg-blue mb-8">
+                <span style='background: #fff;'></span>
+                <span>Monday<br>11am / 6.30pm</span>
+                <span>Tuesday</span>
+                <span>Wednesday<br>11am / 6.30pm</span>
+                <span>Thursday</span>
+                <span>Friday<br>11am / 6.30pm</span>
+                <span>Saturday<br>2pm</span>
+                <span>Sunday</span>
+            </div>
+
+            <div class="grids ">
+                <span class='bg-green'>Group focus</span>
+                <span class='bg-green'>Workshop</span>
+                <span class='bg-green'></span>
+                <span class='bg-green'>Workshop</span>
+                <span class='bg-green'></span>
+                <span class='bg-green'>Workshop</span>
+                <span class='bg-green'>Review</span>
+                <span class='bg-green'>Group<br>Overseers</span>
+            </div>
+           
+            <div class="grids mt">
+                <%  weeks.forEach((week)=>{  
+                if ('topic' in week) { %>
+                    <div class="bg-grey align-items">
+                        <span class='bold'>Week <%= week.week %></span>
+                        <span style='color: var(--grey-light)'><%= week.topic %></span>
+                    </div>
+            <% } %>
+            
+                    <div class="bg-orange text-16 flex-align ">
+                        <a href="<%= week.link %>>"><p ><%= week.theme %></p></a>
+                        <a href=""><em><%= week.ref %></em></a>
+                        <footer><%= week.overseers %></footer>
+                    </div> 
+                <%  if (week.day == 'Monday' || week.day == 'Wednesday') { %>
+                        <div class="bg-grey-light"></div> <%
+                    }
+                    if (week.day == 'Saturday') { %>
+                        <a href="https://forms.gle/5yoZA8ZGzx6EW8bA6" class='combined bg-orange'></a>
+                <%  }
+                
+             }); %>
+        </header>
+    </section>
+    <script src="/js/index.js"></script>
+</body>
+</html>
